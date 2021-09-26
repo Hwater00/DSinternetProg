@@ -1,0 +1,33 @@
+참고 사이트:https://stickode.tistory.com/45?category=917924
+SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor=sharedPreferences.edit();
+
+ editor.putString("checkNum",checkNum);
+                editor.apply();
+
+checkBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               if(sharedPreferences.getString("ckeckNum","").equals(inputCheckNum.getText().toString())){
+                   Toast.makeText(getApplicationContext(),"인증 완료 되었습니다.",Toast.LENGTH_SHORT).show();
+               }else{
+                   Toast.makeText(getApplicationContext(),"인증번호가 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
+               }
+            }
+        });
+
+-----------------------------------------
+user_sepw.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    Pattern p = Pattern.compile("^[ㄱ-ㅎ가-힣0-9]");
+                    Matcher m = p.matcher((user_sepw).getText().toString());
+
+                    if ( !m.matches()){
+                        Toast.makeText(MainActivity.this, "안심번호 형식에 맞춰서 입력해주세요", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
