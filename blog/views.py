@@ -8,6 +8,7 @@ from .models import Post
 class PostList(ListView) :
     model = Post
     ordering = '-pk'
+
     #template_name = 'blog/post_list.html'
     #post_list.html
 
