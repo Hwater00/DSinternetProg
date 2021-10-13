@@ -9,11 +9,11 @@ class TestView(TestCase):
 
     def test_post_list(self):
         #포스트 목록페이지를 가져온다
-        response=self.client.get('/blog/')
+        response = self.client.get('/blog/')
         #정상적으로 페이지 로드
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code,200)
         #페이지 타이틀 '블로그'
-        soup=BeautifulSoup(response.content,'html.parser')
+        soup = BeautifulSoup(response.content, 'html.parser')
         self.assertEqual(soup.title.text,'Blog')
         #네비게이션 바 존재
         navbar = soup.nav
@@ -33,7 +33,7 @@ class TestView(TestCase):
             content= 'Hello World!! We are the wrold'
         )
         post_002= Post.objects.create(
-            title='두 번째 포스트입니다.',
+            title='두번째 포스트입니다.',
             content='1등이 전부가 아니잖아요'
         )
         self.assertEqual(Post.objects.count(),2)
@@ -54,7 +54,7 @@ class TestView(TestCase):
             content='Hello World!! We are the wrold'
         )
         #이 포스트의 url이
-        self.assertEqual(post_001.get_absolute_url(), 'blog/1/')
+        self.assertEqual(post_001.get_absolute_url(), '/blog/1')
         response = self.client.get('/blog/1')
         self.assertEqual(response.status_code, 200)
         soup = BeautifulSoup(response.content, 'html.parser')
