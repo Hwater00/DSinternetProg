@@ -80,18 +80,25 @@
         {% for p in post_list %}
         <!-- Blog post-->
         <div class="card mb-4">
-          <img class="card-img-top" src="{{ p.head_image.url }}" alt="..." />
+            {% if p.head_image %}
+                <img class="card-img-top" src="{{ p.head_image.url }}" alt="{{p}}의 head image" />
+            {% else %}
+                <img class="card-img-top" src="https://picsum.photos/seed/{{p.id}}/800/200"
+                alt="random image"/>
+            {% endif %}
           <div class="card-body">
-              <div class="small text-muted">{{p.created_at}}</div>
-              <h2 class="card-title h4">{{p.title }}</h2>
-              <p class="card-text">{{p.content }}</p>
+
+              <h2 class="card-title h4">{{p.title | upper }}</h2>
+             {% if p.hock_text %}
+              <h5 class="text_muted ">{{ p.hock_text }}</h5>
+              {% endif %}
+              <p class="card-text">{{p.content | truncatewords:45 }}</p>
               <a class="btn btn-primary" href="{{ p.get_absolute_url }}">Read more →</a>
           </div>
           </div>
             <div class="card-footer">
-                <div class="small text-muted">{{ p.created_at}} by작성(계발 예정)
+                <div class="small text-muted">{{ p.created_at | date:"yy-m-d h:m:s"}} by작성(계발 예정)
                 </div>
-      </div>
      {% endfor %}
       <!-- Pagination-->
 
