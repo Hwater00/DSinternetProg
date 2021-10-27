@@ -1,18 +1,32 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
-from .models import Post
+from .models import Post,Category
 
 
 # Create your views here.
 class PostList(ListView) :
     model = Post
     ordering = '-pk'
-    #template_name = 'blog/post_list.html' 클래스에 templeate이름 인식없이 자동
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context= super(PostList,self).get_context_data()
+        context['categories']= Category.objects.all()
+        context['no_category_post_count'] = Post.objects.filter(category=None).count()
+        return context
+
+    #template_name = 'blog/post_list.html'
     #post_list.html
 
 class PostDetail(DetailView):
     model = Post
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context= super(PostDetail,self).get_context_data()
+        context['categories']= Category.objects.all()
+        context['no_category_post_count'] = Post.objects.filter(category=None).count()
+        return context
+
     #post_detail.html
 
 #def index(request):
@@ -20,13 +34,12 @@ class PostDetail(DetailView):
 #
 #    return render(request,'blog/post_list.html',
 #                  {
-#                      'posts': posts -FBA일 때 이거 없음
+#                      'posts': posts
 #                  }
 #                 )
 #
 #def single_post_page(request,pk) :
-#    post = Post.objects.get(pk=pk) # =를 중심으로 왼쪽은 필드에 있는 것
-#
+#    post = Post.objects.get(pk=pk)
 #    return render(request, 'blog/post_detail.html',
 #                  {
 #                      'post': post
