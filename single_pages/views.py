@@ -6,4 +6,4 @@ def landing(request):
 
 def about_me(request):
     return render(request, 'single_pages/about_me.html')
-
+# return render(request, '앱 이름과 동일하게/about_me.html이라는 내가 만든 템플릿')

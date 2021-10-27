@@ -8,20 +8,19 @@ from .models import Post
 class PostList(ListView) :
     model = Post
     ordering = '-pk'
-
-    #template_name = 'blog/post_list.html'
+    #template_name = 'blog/post_list.html' 클래스에 templeate이름 인식없이 자동
     #post_list.html
 
 class PostDetail(DetailView):
     model = Post
-#post_detail.html
+    #post_detail.html
 
 #def index(request):
-#    posts = Post.objects.all().order_by('-pk')
+#    posts = Post.objects.all().order_by('-pk') 모델명. obects.all()로 가져와 posts에 담는다.-pk로 역순
 #
 #    return render(request,'blog/post_list.html',
 #                  {
-#                      'posts': posts
+#                      'posts': posts -FBA일 때 이거 없음
 #                  }
 #                 )
 #

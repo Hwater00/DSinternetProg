@@ -20,9 +20,12 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('blog/' , include('blog.urls')), #서버 IP/blog
+    path('blog/', include('blog.urls')),
+    #서버 IP/blog, 블로그에 있는 url 인클로드. 블로그에 urls파일 추가
+
     path('admin/', admin.site.urls), #서버IP/admin
-    path('',include('single_pages.urls')), #서버IP/
+    path('', include('single_pages.urls')), #서버IP/로 사바ip만 들어오고 아무것도 없으면 include()안 링크로 연결
 
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #서버IP/media/
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #서버 fhIP/media/
+
