@@ -1,11 +1,14 @@
 from django.test import TestCase, Client
 from bs4 import BeautifulSoup
+from django.contrib.auth.models import User
 from .models import Post
 
 # Create your tests here.
 class TestView(TestCase):
     def setUp(self):
         self.client = Client()
+        self.user_james = User.objects.create_user(username='James',password='aomepassword')
+        self.user_trump = User.objects.create_user(username='Trump', password='aomepassword')
 
     def navbar_test(self, soup):
         # 포스트 목록과 같은 네비게이션바가 있는가
@@ -43,10 +46,12 @@ class TestView(TestCase):
         post_001 = Post.objects.create(
             title='첫번째 포스트',
             content= 'Hello World!! We are the wrold',
+            author = self.user_james
         )
         post_002= Post.objects.create(
             title='두번째 포스트',
             content='1등이 전부가 아니잖아요',
+            author= self.user_trump
         )
         self.assertEqual(Post.objects.count(),2)
         # 포스트 목록페이지를 가져온다
@@ -58,12 +63,15 @@ class TestView(TestCase):
         self.assertIn(post_001.title, main_area.text)
         self.assertIn(post_002.title, main_area.text)
         self.assertNotIn('아직 게시물이 없습니다.', main_area.text)
+        self.assertIn(self.user_james.username.upper(),main_area.text)
+        self.assertIn(self.user_trump.username.upper(), main_area.text)
 
     def test_post_detail(self):
         #포스트 하나
         post_001 = Post.objects.create(
             title='첫번째 포스트',
             content='Hello World!! We are the wrold',
+            author=self.user_james
         )
         #이 포스트의 url이
         self.assertEqual(post_001.get_absolute_url(), '/blog/1')
@@ -80,5 +88,10 @@ class TestView(TestCase):
         main_area = soup.find('div', id='main-area')
         post_area = main_area.find('div', id="post-area")
         self.assertIn(post_001.title, post_area.text)
+
         self.assertIn(post_001.content, post_area.text)
+
+        self.assertIn(self.user_james.username.upper(), post_area.txt)
+
+
 

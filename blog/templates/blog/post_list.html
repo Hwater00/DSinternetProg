@@ -23,7 +23,8 @@
               </div>
 
                 <div class="card-footer">
-                    <div class="small text-muted">{{ p.created_at | date:"yy-m-d h:m:s"}} by작성(계발 예정)</div>
+                    <div class="small text-muted">{{ p.created_at | date:"20y-m-d h:m:s"}} by {{p.author | upper }}
+                    </div>
                 </div>
             </div>
 
