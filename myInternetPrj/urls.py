@@ -25,6 +25,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls), #서버IP/admin
     path('', include('single_pages.urls')), #서버IP/로 사바ip만 들어오고 아무것도 없으면 include()안 링크로 연결
+    path('markdownx/',include('markdownx.urls'))
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #서버 fhIP/media/
