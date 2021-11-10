@@ -6,7 +6,12 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
-            {{from}}
+            {{form}}
+            <tr>
+                 <th><label for="id_tags_str">Tags:</label></th>
+                 <td><input type="text" name="tags_str"  maxlength="30" required id="id_tags_str"></td>
+             </tr>
+
             <button type="submit" class="btn btn-primary float-right">Submit</button>
         </table>
     </form>
