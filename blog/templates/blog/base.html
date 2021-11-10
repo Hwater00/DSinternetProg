@@ -24,13 +24,12 @@
             <div class="card my-4">
                 <div class="card-header"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</div>
                 <div class="card-body">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for..." id="search-input">
+
                         <div class="input-group-btn">
                             <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
                                 <button class="btn btn-secondary" type="button" onclick="searchPost();">Go!</button>
-                            </div>
-                    </div>
+                        </div>
+
                 </div>
             </div>
 
@@ -42,7 +41,7 @@
 
                         <ul class="list-unstyled mb-0">
                           {% for c in categories %}
-                          <li><a href="c.get_absolute_url{{c.slug}}">{{c}} ({{c.post_set.count}})</a></li>
+                          <li><a href="{{c.slug}}">{{c}} ({{c.post_set.count}})</a></li>
                           {% endfor %}
                           <li><a href="http://127.0.0.1:8000/blog/category/no_category">미분류({{no_category_post_count}})</a></li>
                       </ul>
