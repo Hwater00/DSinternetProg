@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import os
 from markdownx.models import MarkdownxField
-from markdownx.utils import  markdown
+from markdownx.utils import markdown
 # Create your models here.
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -40,7 +40,7 @@ class Post (models.Model):
 
     author = models.ForeignKey(User,null=True, blank=True,on_delete=models.SET_NULL)
 
-    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, blank=True,on_delete=models.SET_NULL)
 
     tags= models.ManyToManyField(Tag,blank=True)
 
