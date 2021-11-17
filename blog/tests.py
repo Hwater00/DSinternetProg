@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
-from .models import Post,Category,Tag
+from .models import Post,Category,Tag,Comment
 
 # Create your tests here.
 class TestView(TestCase):
@@ -9,7 +9,7 @@ class TestView(TestCase):
         self.client = Client()
 
         self.user_james = User.objects.create_user(username='James',password='somepassword')
-        self.user_trump.is_staff =True
+        self.user_trump.is_staff = True
         self.user_james.save()
         self.user_trump = User.objects.create_user(username='Trump', password='somepassword')
 
@@ -42,6 +42,14 @@ class TestView(TestCase):
         )
         self.post_003.tags.add(self.tag_python)
         self.post_003.tags.add(self.tag_python_kor)
+
+        self.comment_001 =Comment.objects.create(
+            post = self.post_001,
+            auther= self.user_trump,
+            content= '첫번째 댓글입니다.'
+
+        )
+
     def navbar_test(self, soup):
         # 포스트 목록과 같은 네비게이션바가 있는가
         navbar = soup.nav
@@ -226,9 +234,9 @@ class TestView(TestCase):
         main_area = soup.find('div', id='main-area')
         self.assertIn('아직 게시물이 없습니다.', main_area.text)
 
+        #상세 페이지
     def test_post_detail(self):
         #포스트 하나
-
 
         #이 포스트의 url이
         self.assertEqual(self.post_001.get_absolute_url(), '/blog/1')
@@ -255,5 +263,8 @@ class TestView(TestCase):
 
         self.assertIn(self.user_james.username.upper(), post_area.txt)
 
-
+        comments_area = soup.find('div',id='comment-area')
+        comment_001_area =comments_area.find('div',id='comment-1')
+        self.assertIn(self.comment_001.author.username,comment_001_area.text)
+        self.assertIn(self.comment_001.content, comment_001_area.text)
 
