@@ -53,10 +53,17 @@ class Post (models.Model):
     def get_file_name(self):
         return os.path.basename(self.file_upload.name)
 
+    def get_avatar_url(self):
+        if self.author.socialaccount_set.exists():
+            return self.author.socialaccount_set.first().get_avatar_url()
+        else:
+            return 'https://doitdjango.com/avatar/id/425/9afec6c6a50ba0ce/svg/{self.author.email}/'
+
     def get_file_ext(self):
         return self.get_file_name().split('.')[-1]
     def get_content_markdown(self):
         return markdown(self.content)
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
