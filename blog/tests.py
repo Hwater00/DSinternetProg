@@ -123,7 +123,7 @@ class TestView(TestCase):
         blog = navbar.find('a', text='Blog')
         self.assertEqual(blog.attrs['href'], '/blog/')
         about = navbar.find('a', text='About Me')
-        self.assertEqual(about.attrs['href'], '/about_me/')
+        self.assertEqual(about.attrs['href'], '/abount_me.css/')
 
     def category_test(self,soup):
         category = soup.find('div' ,id='categories-card')
