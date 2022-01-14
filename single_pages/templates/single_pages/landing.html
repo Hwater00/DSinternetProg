@@ -20,7 +20,7 @@
             <p>가장 많은 종류의 음료를 모아 놓았습니다. 차, 커피, 탄산음료, 이온 음료 필요하신 것을 골라 주세요.</p>
         </div>
             <div class="col-lg-5">
-                <h2 class="text-dark"> 당신을 위한 오늘의 메뉴</h2>
+                <h2 class="text-dark"> 업로드 메뉴</h2>
                 {% for post in recent_posts %}
                     <div class="card mt-2">
                         <div class="card-body">
@@ -30,7 +30,7 @@
                             {{post.price_text}}
                             <span class="badge bg-light text-dark float-right">
                                 {% if post.head_image %}
-                                 <img class="rounded-circle mr-1" width="200px"
+                                 <img class="rounded-circle mr-1" width="100px"
                                 src="{{post.head_image.url}}" alt="{{post.price_text}}}">
                                 {% else %}
                                     <img class="rounded-circle mr-1" src="https://picsum.photos/seed/{{ post.id }}/50/50" alt="">
